@@ -158,7 +158,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.15, g: 0.18, b: 0.22, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -183,7 +183,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -208,7 +208,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: -1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -258,16 +258,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5acc1a950741d0046b8253832523ecbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraSize: 6
-  _cameraPosition: {x: 0, y: -1, z: -10}
-  _backgroundColor: {r: 0.15, g: 0.18, b: 0.22, a: 1}
-  _houseCenter: {x: 0, y: 0}
-  _houseSize: {x: 6, y: 4}
-  _wallThickness: 0.3
-  _doorWidth: 1.2
-  _thiefSpeed: 2.5
-  _thiefSize: 0.6
-  _alarmRampSpeed: 0.6
+  _housePrefab: {fileID: 8054666592098610608, guid: e6c9fec8f58ff6d488b012c48eba21a6, type: 3}
+  _alarmPrefab: {fileID: 6708346426945592599, guid: 14e442dfd0dbbe64f867b72ee4247a10, type: 3}
+  _thiefPrefab: {fileID: 1813395082887760548, guid: 444f53e35cf72f949900f6c030b8ac3b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

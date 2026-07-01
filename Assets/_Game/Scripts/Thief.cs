@@ -8,8 +8,9 @@ namespace ThiefSignal
         private const float ArrivalThreshold = 0.05f;
         private const float ArrivalThresholdSquared = ArrivalThreshold * ArrivalThreshold;
 
+        [SerializeField] private float _speed = 2.5f;
+
         private Vector2[] _waypoints = System.Array.Empty<Vector2>();
-        private float _speed;
         private int _currentWaypointIndex;
         private bool _isMoving;
 
@@ -21,15 +22,9 @@ namespace ThiefSignal
             MoveTowardsCurrentWaypoint();
         }
 
-        public void Configure(Vector2[] waypoints, float speed)
+        public void Init(Vector2[] waypoints)
         {
-            _waypoints = waypoints;
-            _speed = speed;
-            InitializeMovement();
-        }
-
-        private void InitializeMovement()
-        {
+            _waypoints = (Vector2[])waypoints.Clone();
             _isMoving = _waypoints.Length > 0;
 
             if (_isMoving)
@@ -40,7 +35,9 @@ namespace ThiefSignal
         {
             Vector2 target = _waypoints[_currentWaypointIndex];
 
-            Vector2 newPosition = Vector2.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+            Vector2 newPosition = Vector2.MoveTowards(
+                transform.position, target, _speed * Time.deltaTime);
+
             transform.position = newPosition;
 
             Vector2 toTarget = target - newPosition;

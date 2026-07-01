@@ -4,37 +4,55 @@ namespace ThiefSignal
 {
     public class SceneBootstrap : MonoBehaviour
     {
-        [Header("Camera")]
-        [SerializeField] private float _cameraSize = 6f;
-        [SerializeField] private Vector3 _cameraPosition = new Vector3(0f, -1f, -10f);
-        [SerializeField] private Color _backgroundColor = new Color(0.15f, 0.18f, 0.22f);
+        private const float OutsideOffset = 3f;
+        private const float BottomOffset = 1f;
 
-        [Header("House")]
-        [SerializeField] private Vector2 _houseCenter = Vector2.zero;
-        [SerializeField] private Vector2 _houseSize = new Vector2(6f, 4f);
-        [SerializeField] private float _wallThickness = 0.3f;
-        [SerializeField] private float _doorWidth = 1.2f;
+        [SerializeField] private HouseInterior _housePrefab;
+        [SerializeField] private AlarmController _alarmPrefab;
+        [SerializeField] private Thief _thiefPrefab;
 
-        [Header("Thief")]
-        [SerializeField] private float _thiefSpeed = 2.5f;
-        [SerializeField] private float _thiefSize = 0.6f;
+        private HouseInterior _house;
+        private AlarmController _alarm;
 
-        [Header("Alarm")]
-        [SerializeField] private float _alarmRampSpeed = 0.6f;
-
-        private void Start()
+        private void Awake()
         {
-            SpriteAssets assets = new SpriteAssets();
+            _house = Instantiate(_housePrefab);
+            _alarm = Instantiate(_alarmPrefab);
 
-            CameraBuilder.Configure(_cameraSize, _cameraPosition, _backgroundColor);
+            Thief thief = Instantiate(_thiefPrefab);
 
-            AlarmController alarm = AlarmBuilder.Build(_alarmRampSpeed);
+            thief.Init(BuildWaypoints(_house.Size));
+        }
 
-            HouseConfig houseConfig = new HouseConfig(_houseCenter, _houseSize, _wallThickness, _doorWidth);
-            HouseBuilder.Build(assets, houseConfig, alarm);
+        private void OnEnable()
+        {
+            _house.ThiefEntered += _alarm.Activate;
+            _house.ThiefExited += _alarm.Deactivate;
+        }
 
-            ThiefConfig thiefConfig = new ThiefConfig(_thiefSpeed, _thiefSize);
-            ThiefBuilder.Build(assets, thiefConfig, _houseSize);
+        private void OnDisable()
+        {
+            if (_house == null || _alarm == null)
+                return;
+
+            _house.ThiefEntered -= _alarm.Activate;
+            _house.ThiefExited -= _alarm.Deactivate;
+        }
+
+        private static Vector2[] BuildWaypoints(Vector2 houseSize)
+        {
+            float halfWidth = houseSize.x * 0.5f;
+            float outsideX = halfWidth + OutsideOffset;
+            float bottomY = -houseSize.y - BottomOffset;
+
+            return new Vector2[]
+            {
+                new Vector2(-outsideX, 0f),
+                new Vector2(0f, 0f),
+                new Vector2(outsideX, 0f),
+                new Vector2(outsideX, bottomY),
+                new Vector2(-outsideX, bottomY)
+            };
         }
     }
 }
