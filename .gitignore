@@ -111,3 +111,7 @@ InitTestScene*.unity*
 # kept out of version control intentionally.
 /docs/
 /docs.meta
+
+# Auto-generated screenshots from editor/MCP testing
+/[Aa]ssets/[Ss]creenshots/
+/[Aa]ssets/[Ss]creenshots.meta

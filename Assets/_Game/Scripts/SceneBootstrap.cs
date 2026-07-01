@@ -39,7 +39,7 @@ namespace ThiefSignal
             _house.ThiefExited -= _alarm.Deactivate;
         }
 
-        private static Vector2[] BuildWaypoints(Vector2 houseSize)
+        internal static Vector2[] BuildWaypoints(Vector2 houseSize)
         {
             float halfWidth = houseSize.x * 0.5f;
             float outsideX = halfWidth + OutsideOffset;
