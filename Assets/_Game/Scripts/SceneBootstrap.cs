@@ -18,6 +18,7 @@ namespace ThiefSignal
         {
             _house = Instantiate(_housePrefab);
             _alarm = Instantiate(_alarmPrefab);
+            _alarm.Init(new AlarmSoundFactory());
 
             Thief thief = Instantiate(_thiefPrefab);
 

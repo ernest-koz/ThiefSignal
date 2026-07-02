@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace ThiefSignal
 {
-    public static class AlarmSoundFactory
+    public class AlarmSoundFactory
     {
         private const int SampleRate = 44100;
         private const float Duration = 2f;
@@ -11,7 +11,7 @@ namespace ThiefSignal
         private const float TonePeriod = 0.5f;
         private const float Amplitude = 0.25f;
 
-        public static AudioClip CreateSiren()
+        public AudioClip CreateSiren()
         {
             int totalSamples = Mathf.RoundToInt(SampleRate * Duration);
             float[] samples = new float[totalSamples];
@@ -25,7 +25,7 @@ namespace ThiefSignal
             return clip;
         }
 
-        private static float SampleValueAt(int sampleIndex)
+        private float SampleValueAt(int sampleIndex)
         {
             float time = sampleIndex / (float)SampleRate;
             int toneIndex = Mathf.FloorToInt(time / TonePeriod);

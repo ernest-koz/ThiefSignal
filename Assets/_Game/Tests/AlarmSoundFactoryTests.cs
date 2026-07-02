@@ -6,10 +6,12 @@ namespace ThiefSignal.Tests
     [TestFixture]
     public class AlarmSoundFactoryTests
     {
+        private readonly AlarmSoundFactory _factory = new AlarmSoundFactory();
+
         [Test]
         public void CreateSiren_ReturnsNonNullClip()
         {
-            AudioClip clip = AlarmSoundFactory.CreateSiren();
+            AudioClip clip = _factory.CreateSiren();
 
             Assert.NotNull(clip);
         }
@@ -17,7 +19,7 @@ namespace ThiefSignal.Tests
         [Test]
         public void CreateSiren_HasStandardSampleRate()
         {
-            AudioClip clip = AlarmSoundFactory.CreateSiren();
+            AudioClip clip = _factory.CreateSiren();
 
             Assert.AreEqual(44100, clip.frequency);
         }
@@ -25,7 +27,7 @@ namespace ThiefSignal.Tests
         [Test]
         public void CreateSiren_IsMonoChannel()
         {
-            AudioClip clip = AlarmSoundFactory.CreateSiren();
+            AudioClip clip = _factory.CreateSiren();
 
             Assert.AreEqual(1, clip.channels);
         }
@@ -33,7 +35,7 @@ namespace ThiefSignal.Tests
         [Test]
         public void CreateSiren_HasPositiveLength()
         {
-            AudioClip clip = AlarmSoundFactory.CreateSiren();
+            AudioClip clip = _factory.CreateSiren();
 
             Assert.Greater(clip.length, 0f);
         }
@@ -41,7 +43,7 @@ namespace ThiefSignal.Tests
         [Test]
         public void CreateSiren_SampleCountMatchesRateAndDuration()
         {
-            AudioClip clip = AlarmSoundFactory.CreateSiren();
+            AudioClip clip = _factory.CreateSiren();
 
             int expectedSamples = Mathf.RoundToInt(clip.frequency * clip.length);
 

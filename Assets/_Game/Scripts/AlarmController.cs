@@ -12,15 +12,21 @@ namespace ThiefSignal
         [SerializeField] private float _rampSpeed = 0.6f;
 
         private AudioSource _audioSource;
+        private AlarmSoundFactory _soundFactory;
         private Coroutine _fadeRoutine;
 
         private void Awake()
         {
             _audioSource = GetComponent<AudioSource>();
-            _audioSource.clip = AlarmSoundFactory.CreateSiren();
             _audioSource.loop = true;
             _audioSource.playOnAwake = false;
             _audioSource.volume = MinimumVolume;
+        }
+
+        public void Init(AlarmSoundFactory soundFactory)
+        {
+            _soundFactory = soundFactory;
+            _audioSource.clip = _soundFactory.CreateSiren();
             _audioSource.Play();
         }
 
